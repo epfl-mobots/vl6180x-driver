@@ -27,6 +27,9 @@ void vl6180x_write_register(vl6180x_t *dev, uint16_t reg, uint8_t val);
 /** Returns 0 if the distance was measured correctly, the error code otherwise. */
 uint8_t vl6180x_measure_distance(vl6180x_t *dev, uint8_t *out_mm);
 
+/** Sends initial configuration to device. */
+void vl6180x_configure(vl6180x_t *dev);
+
 #ifdef __cplusplus
 }
 #endif

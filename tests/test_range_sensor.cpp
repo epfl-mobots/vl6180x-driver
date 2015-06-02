@@ -106,4 +106,3 @@ TEST(VL6180XRegisterTestGroup, CanReadDistance)
 
     CHECK_EQUAL(ret, 0x09);
 }
-
