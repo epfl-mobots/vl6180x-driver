@@ -22,13 +22,15 @@ uint8_t vl6180x_measure_distance(vl6180x_t *dev, uint8_t *out_mm)
     /* Read result. */
     mm = vl6180x_read_register(dev, VL6180X_RESULT_RANGE_VAL);
 
-    /* Clear interrupt flag. */
-    vl6180x_write_register(dev, VL6180X_SYSTEM_INTERRUPT_CLEAR, 0x01);
+    /* Clear interrupt flags. */
+    vl6180x_write_register(dev, VL6180X_SYSTEM_INTERRUPT_CLEAR, 0x07);
 
+    /* Wait for device ready. */
     do {
         status = vl6180x_read_register(dev, VL6180X_RESULT_RANGE_STATUS);
     } while ((status & (1 << 0)) == 0);
 
+    /* Return error code. */
     return (status >> 4);
 }
 

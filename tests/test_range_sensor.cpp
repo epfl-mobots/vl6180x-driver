@@ -77,7 +77,8 @@ TEST(VL6180XRegisterTestGroup, CanWriteRegister)
 TEST(VL6180XRegisterTestGroup, CanReadDistance)
 {
     /* See section 2.4.1 of the datasheet for information on the single shot
-     * measure sequence. */
+     * measure sequence.
+     * AN4545 is also very useful. */
     uint8_t mm, ret;
 
     /* Start of measurement. */
@@ -92,7 +93,7 @@ TEST(VL6180XRegisterTestGroup, CanReadDistance)
     expect_read(VL6180X_RESULT_RANGE_VAL, 18);
 
     /* Interrupt clear. */
-    expect_write(VL6180X_SYSTEM_INTERRUPT_CLEAR, (1 << 0));
+    expect_write(VL6180X_SYSTEM_INTERRUPT_CLEAR, 0x07);
 
     /* Wait for sensor to be ready, return error code 0b1001 (unused). */
     uint8_t err_code = (0x09 << 4);
