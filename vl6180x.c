@@ -31,3 +31,19 @@ uint8_t vl6180x_measure_distance(vl6180x_t *dev, uint8_t *out_mm)
 
     return (status >> 4);
 }
+
+
+#ifdef HAL_USE_I2C
+void vl6180x_write_register(vl6180x_t *dev, uint16_t reg, uint8_t val)
+{
+    uint8_t buf[] = {(reg >> 8), reg & 0xff, val};
+    i2cMasterTransmit(dev->i2c, dev->address, buf, 3, NULL, 0);
+}
+
+uint8_t vl6180x_read_register(vl6180x_t *dev, uint16_t reg)
+{
+    uint8_t ret;
+    i2cMasterTransmit(dev->i2c, dev->address, &reg, 1, &ret, 1);
+    return ret;
+}
+#endif
