@@ -1,0 +1,9 @@
+depends:
+    - test-runner
+
+source:
+    - tof_sensor.c
+
+tests:
+    - tests/test_range_sensor.cpp
+      #    - tests/dummyhal.cpp
