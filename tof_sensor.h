@@ -21,6 +21,8 @@ typedef struct {
 } vl6180x_t;
 
 void vl6180x_init(vl6180x_t *dev, I2CDriver *i2c_dev, uint8_t address);
+uint8_t vl6180x_read_register(vl6180x_t *dev, uint16_t reg);
+void vl6180x_write_register(vl6180x_t *dev, uint16_t reg, uint8_t val);
 
 #ifdef __cplusplus
 }
