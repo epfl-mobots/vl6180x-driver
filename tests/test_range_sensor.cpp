@@ -1,6 +1,6 @@
 #include <CppUTest/TestHarness.h>
 #include <CppUTestExt/MockSupport.h>
-#include "../tof_sensor.h"
+#include "../vl6180x.h"
 #include <cstring>
 #include "../vl6180x_registers.h"
 

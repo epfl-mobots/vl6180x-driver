@@ -1,4 +1,4 @@
-#include "tof_sensor.h"
+#include "vl6180x.h"
 #include "vl6180x_registers.h"
 
 void vl6180x_init(vl6180x_t *dev, I2CDriver *i2c_dev, uint8_t address)
