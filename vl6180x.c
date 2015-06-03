@@ -21,6 +21,7 @@ uint8_t vl6180x_measure_distance(vl6180x_t *dev, uint8_t *out_mm)
 
     /* Read result. */
     mm = vl6180x_read_register(dev, VL6180X_RESULT_RANGE_VAL);
+    *out_mm = mm;
 
     /* Clear interrupt flags. */
     vl6180x_write_register(dev, VL6180X_SYSTEM_INTERRUPT_CLEAR, 0x07);
