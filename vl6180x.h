@@ -6,11 +6,9 @@ extern "C" {
 
 #include <stdint.h>
 
-#if defined(__unix__) || (defined(__APPLE__) && defined(__MACH__))
-#include "tests/testhal.h"
-#else
+
 #include "hal.h"
-#endif
+
 
 /* Default address of the sensor after powerup. */
 #define VL6180X_DEFAULT_ADDRESS 0x29

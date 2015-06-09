@@ -37,6 +37,9 @@ uint8_t vl6180x_measure_distance(vl6180x_t *dev, uint8_t *out_mm)
 
 void vl6180x_configure(vl6180x_t *dev)
 {
+    while (vl6180x_read_register(dev, 0x16) != 0x01) {
+    }
+
     /* Mandatory: Private registers. */
     vl6180x_write_register(dev, 0x0207, 0x01);
     vl6180x_write_register(dev, 0x0208, 0x01);
@@ -99,7 +102,8 @@ void vl6180x_write_register(vl6180x_t *dev, uint16_t reg, uint8_t val)
 uint8_t vl6180x_read_register(vl6180x_t *dev, uint16_t reg)
 {
     uint8_t ret;
-    i2cMasterTransmit(dev->i2c, dev->address, &reg, 1, &ret, 1);
+    uint8_t buf[] = {(reg >> 8), reg & 0xff};
+    i2cMasterTransmit(dev->i2c, dev->address, buf, 2, &ret, 1);
     return ret;
 }
 #endif
