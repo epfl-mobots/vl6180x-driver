@@ -1,5 +1,6 @@
 #include "vl6180x.h"
 #include "vl6180x_registers.h"
+#include <ch.h>
 
 void vl6180x_init(vl6180x_t *dev, I2CDriver *i2c_dev, uint8_t address)
 {
@@ -11,13 +12,19 @@ uint8_t vl6180x_measure_distance(vl6180x_t *dev, uint8_t *out_mm)
 {
     uint8_t status, mm;
 
+    /* Wait for device ready. */
+    do {
+        status = vl6180x_read_register(dev, VL6180X_RESULT_RANGE_STATUS);
+    } while ((status & (1 << 0)) == 0);
+
     /* Start measurement. */
     vl6180x_write_register(dev, VL6180X_SYSRANGE_START, 0x01);
 
     /* Wait for measurement ready. */
-    do {
-        status = vl6180x_read_register(dev, VL6180X_RESULT_INTERRUPT_STATUS_GPIO);
-    } while ((status & (1 << 2)) == 0);
+    // do {
+    //     status = vl6180x_read_register(dev, VL6180X_RESULT_INTERRUPT_STATUS_GPIO);
+    // } while ((status & (1 << 2)) == 0);
+    chThdSleepMilliseconds(100);
 
     /* Read result. */
     mm = vl6180x_read_register(dev, VL6180X_RESULT_RANGE_VAL);
